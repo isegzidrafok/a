@@ -1,0 +1,36 @@
+name: Build Android Gradle App
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # Gradle sarmalayıcısını (Gradle Wrapper) sıfırdan kurar
+    - name: Setup Gradle
+      run: gradle wrapper
+
+    # İzinleri düzenler ve Debug APK derler
+    - name: Build Debug APK
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleDebug
+
+    # Derlenen APK dosyasını indirmemiz için saklar
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Standart-Android-App
+        path: app/build/outputs/apk/debug/app-debug.apk
