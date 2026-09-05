@@ -19,8 +19,15 @@ jobs:
         distribution: 'temurin'
 
     # Gradle sarmalayıcısını (Gradle Wrapper) sıfırdan kurar
+    # Gradle sürümünü 8.5 olarak sabitliyoruz
     - name: Setup Gradle
-      run: gradle wrapper
+      run: gradle wrapper --gradle-version 8.5
+
+    # İzinleri düzenler ve Debug APK derler
+    - name: Build Debug APK
+      run: |
+        chmod +x gradlew
+        ./gradlew assembleDebug
 
     # İzinleri düzenler ve Debug APK derler
     - name: Build Debug APK
