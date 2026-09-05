@@ -20,7 +20,14 @@ android {
             minifyEnabled false
         }
     }
-    
+
+    // Java derleyici sürümünü 17 yapıyoruz (Eksik olan yer burasıydı)
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    // Kotlin derleyici sürümünü 17 yapıyoruz
     kotlinOptions {
         jvmTarget = '17'
     }
